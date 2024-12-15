@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ bike.name }} Details</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ bike.name }}</h1>
+        <img src="{{ bike.image_url }}" alt="{{ bike.name }}" style="max-width: 300px;">
+        <p><strong>Type:</strong> {{ bike.type }}</p>
+        <p><strong>Rate (per day):</strong> ${{ bike.price_per_day }}</p>
+        <p><strong>Status:</strong> {{ bike.status }}</p>
+
+        {% if bike.status == 'aviable' %}
+        <form action="/api/rent/{{ bike.id }}" method="POST">
+    		<button type="submit" class="btn btn-primary">Rent Now</button>
+	</form>
+        {% else %}
+        <p class="unavailable">This bike is currently unavailable for rent.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</body>
+</html>

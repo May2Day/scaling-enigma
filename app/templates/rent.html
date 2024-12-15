@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Rent a Bike</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/rent">Rent a Bike</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Rent a Bike</h1>
+        <p>Select the bike you want to rent from the options below:</p>
+        <!-- Example bikes (this could be dynamically populated from a database) -->
+        <ul>
+              {% for bike in bikes %}
+        		<li>{{ bike.type }} - ${{ bike.price }}/day</li>
+    	       {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

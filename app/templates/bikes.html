@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Bicycles</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #e8f5e9; /* Светло-зелёный фон */
+            color: #2e7d32; /* Тёмно-зелёный текст */
+        }
+        .navbar {
+            background-color: #1b5e20; /* Глубокий зелёный */
+        }
+        .navbar a {
+            color: #fff;
+        }
+        .card {
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        .card img {
+            border-bottom: 1px solid #c8e6c9;
+        }
+        .card-title {
+            color: #2e7d32; /* Основной зелёный */
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #2e7d32;
+            border-color: #2e7d32;
+        }
+        .btn-primary:hover {
+            background-color: #1b5e20;
+            border-color: #1b5e20;
+        }
+        .btn-secondary {
+            background-color: #c8e6c9;
+            border-color: #c8e6c9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Bike Rental</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Available Bicycles</h1>
+        <div class="row">
+            {% for bike in bikes %}
+            <div class="col-md-4">
+                <div class="card shadow-sm mb-4">
+                    <img src="{{ bike.image_url }}" class="card-img-top img-fluid" alt="{{ bike.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ bike.name }}</h5>
+                        <p class="card-text text-muted">
+                            <strong>Type:</strong> {{ bike.type }}<br>
+                            <strong>Price:</strong> ${{ bike.price_per_day }} per day<br>
+                            <strong>Status:</strong> 
+                            {% if bike.status == 'aviable' %}
+                                <span class="text-success">Available</span>
+                            {% else %}
+                                <span class="text-danger">Unavailable</span>
+                            {% endif %}
+                        </p>
+                        <div class="text-center">
+                            {% if bike.status == 'aviable' %}
+                            <a href="/api/rent/{{ bike.id }}" class="btn btn-primary btn-block">Rent Now</a>
+                            {% else %}
+                            <button class="btn btn-secondary btn-block" disabled>Unavailable</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
